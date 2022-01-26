@@ -6,7 +6,8 @@ from gql.transport.aiohttp import AIOHTTPTransport
 from . import app
 
 # Selecting transport with a defined url endpoint
-URL = "https://countries.trevorblades.com"
+#URL = "https://countries.trevorblades.com"
+URL = "http://localhost:8091/graphql-query"
 
 transport = AIOHTTPTransport(url=URL)
 
@@ -32,6 +33,21 @@ def home():
                 }
             """
         )
+    query = gql (
+        """ 
+        query{
+  allLabtests {
+    edges {
+      node {
+        testType
+        testmnemonics
+        testName
+      }
+    }
+  }
+}
+        """
+    )
     # Execute the query on the transport
     result = client.execute(query)
     if request.method=='POST':
