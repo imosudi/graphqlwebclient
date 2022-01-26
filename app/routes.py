@@ -23,16 +23,6 @@ client = Client(transport=transport, fetch_schema_from_transport=True)
 
 @app.route('/',methods=['GET','POST'])
 def home():
-    query = gql(
-            """
-            query getContinents {
-                countries {
-                    code
-                    name
-                    }
-                }
-            """
-        )
     query = gql (
         """ 
         query{
@@ -42,6 +32,8 @@ def home():
         testType
         testmnemonics
         testName
+        testPrice
+        testTAT
       }
     }
   }
@@ -51,10 +43,10 @@ def home():
     # Execute the query on the transport
     result = client.execute(query)
     if request.method=='POST':
-        # Handle POST Request here
-        #return render_template('index.html')
-        return result
-    #return render_template('index.html')
-    
+        return render_template('index.html', result=result)
+    rowList = []
+    for item in result['allLabtests']['edges']:
+        rowList.append(item['node'])
+        print(item['node'])
     #print(result)
-    return  result
+    return  render_template('index.html', rowList=rowList )
