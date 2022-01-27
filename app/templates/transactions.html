@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet"  href="{{url_for('static', 
+            filename='css/bootstrap.css')}}">
+    <link rel="stylesheet"  href="{{url_for('static', 
+            filename='css/bootstrap-utilities.css')}}">
+</head>
+<body>
+
+{#{ result  }#}
+
+
+<div class="container col-8">
+    <table class="table">
+        <tr>
+            <th scope="col">#</th>
+            <th scope="col">CurrentpatientID</th>
+            <th scope="col"> barcode</th>
+                <th scope="col">fullName</th>
+                <th scope="col">regtype</th>
+                <th scope="col">sex</th>
+                <th scope="col">billto,</th>
+                <th scope="col">testscheduletype</th>
+                <th scope="col">subtotal</th>
+                <th scope="col">discount</th>
+                <th scope="col">total</th>
+                <th scope="col">paymentmethod</th>
+                <th scope="col">payment</th>
+                <th scope="col">referenceOrchange</th>
+                <th scope="col">sessionconfirm</th>
+                <th scope="col">paymentconfirm</th>
+                <th scope="col">cashier</th>
+                <th scope="col">invoicetestname</th>
+                <th scope="col">invoiceprice</th>
+                <th scope="col">transactTime</th>
+                <th scope="col">phlebotomyProcessed</th>
+                <th scope="col">paymentupdateamount</th>
+                <th scope="col">paymentupdateby</th>
+                <th scope="col">paymentupdateTime</th>
+          </tr>
+{% for item  in rowList %}
+        <tr>
+            <td>{{loop.index }} </td>
+            <td>{{ item['CurrentpatientID'] }} </td>
+            <td>{{ item['barcode'] }} </td>
+            <td>{{ item['fullName'] }} </td>
+            <td>{{ item['regtype'] }} </td>
+            <td>{{ item['sex'] }} </td>
+            <td>{{ item['billto'] }} </td>
+            <td>{{ item['testscheduletype'] }} </td>
+            <td>{{ item['subtotal'] }} </td>
+            <td>{{ item['discount'] }} </td>
+            <td>{{ item['total'] }} </td>
+            <td>{{ item['paymentmethod'] }} </td>
+            <td>{{ item['payment'] }} </td>
+            <td>{{ item['referenceOrchange'] }} </td>
+            <td>{{ item['sessionconfirm'] }} </td>
+            <td>{{ item['paymentconfirm'] }} </td>
+            <td>{{ item['cashier'] }} </td>
+            <td>{{ item['invoicetestname'] }} </td>
+            <td>{{ item['invoiceprice'] }} </td>
+            <td>{{ item['transactTime'] }} </td>
+            <td>{{ item['phlebotomyProcessed'] }} </td>
+            <td>{{ item['paymentupdateamount'] }} </td>
+            <td>{{ item['paymentupdateby'] }} </td>
+            <td>{{ item['paymentupdateTime'] }} </td>
+        </tr>
+    {% endfor %}
+</table>
+</div>
+<script src="app/static/js/bootstrap.js"></script>
+</body>
+</html>
