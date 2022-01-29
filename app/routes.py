@@ -63,12 +63,13 @@ def home():
 @app.route('/labsession',methods=['GET','POST'])
 def labsession():
     testDataColumns = ['testType', 'testmnemonics', 'testName', 'testPrice', 'testTAT]']
+    currentID = "D&FIYIMR-202112FC364"
     query = gql (
         """ 
         query{
           patientDetails (
             filters : {
-              patientID : "D&FIYIMR-202112FC364"
+              patientID : {currentID}
             }
           )
           {
