@@ -2,6 +2,9 @@ from flask import render_template,request #tedirect,url_for,
 from gql import gql, Client
 from gql.transport.aiohttp import AIOHTTPTransport
 
+import asyncio
+
+import json
 
 from . import app
 
@@ -27,7 +30,7 @@ def home():
     query = gql (
         """ 
         query{
-  allLabtests {
+  laboratoryTests {
     edges {
       node {
         testType
@@ -42,11 +45,15 @@ def home():
         """
     )
     # Execute the query on the transport
-    result = client.execute(query)
+    try:
+      result = client.execute(query)
+    except asyncio.TimeoutError:
+      return {"result": f"timeout error on {URL}"}
+    #result = client.execute(query)
     if request.method=='POST':
         return render_template('index.html', result=result)
     rowList = []
-    for item in result['allLabtests']['edges']:
+    for item in result['laboratoryTests']['edges']:
         rowList.append(item['node'])
         print(item['node'])
     #print(result)
@@ -59,30 +66,60 @@ def labsession():
     query = gql (
         """ 
         query{
-  allLabtests {
-    edges {
-      node {
-        testType
-        testmnemonics
-        testName
-        testPrice
-        testTAT
-      }
-    }
-  }
-}
+          patientDetails (
+            filters : {
+              patientID : "D&FIYIMR-202112FC364"
+            }
+          )
+          {
+            edges {
+              node { 
+                patientID
+                patientLastname
+                patientFirstname
+                patientDateofBirth
+                ageGrade
+                patientSex
+                patientType
+                patientCompanyname
+              
+              } 
+            } 
+          },
+          laboratoryTests { 
+            edges { 
+              node { 
+                testId
+                testName
+                testBottleType
+                testPrice
+                testmnemonics
+                testTAT
+                testDetails
+                testType
+              } 
+            } 
+          }
+        }
         """
-    )
+      )
     # Execute the query on the transport
-    result = client.execute(query)
+    try:
+      result = client.execute(query)
+    except asyncio.TimeoutError:
+      return {"result": f"timeout error on {URL}"}
+    #result = client.execute(query)
     if request.method=='POST':
         return render_template('labsession.html', result=result)
     rowList = []
-    for item in result['allLabtests']['edges']:
+    for item in result['laboratoryTests']['edges']:
         rowList.append(item['node'])
-        print(item['node'])
+        #print(item['node'])
     #print(result)
-    return  render_template('labsession.html', rowList=rowList )
+    patient = result['patientDetails']['edges']
+    current_patient = patient[-1]['node']
+    print(current_patient)
+    return  render_template('labsession.html', current_patient = current_patient,  rowList=rowList )
 
 @app.route('/patients',methods=['GET','POST'])
 def patients():
@@ -90,24 +127,28 @@ def patients():
     query = gql (
         """ 
         query{
-  allPatients {
-    edges {
-      node {
-        patientID,patientSex, patientType,patientPhonenumber
-        patientTitle, patientLastname, patientFirstname,
-        ageGrade, patientpersonalEnroledby
-      }
-    }
-  }
-}
+          patientDetails {
+            edges {
+              node {
+                patientID,patientSex, patientType,patientPhonenumber
+                patientTitle, patientLastname, patientFirstname,
+                ageGrade, patientpersonalEnroledby
+              }
+            }
+          }
+        }
         """
-    )
+      )
     # Execute the query on the transport
-    result = client.execute(query)
+    try:
+      result = client.execute(query)
+    except asyncio.TimeoutError:
+      return {"result": f"timeout error on {URL}"}
+    #result = client.execute(query)
     if request.method=='POST':
         return render_template('patients.html', result=result)
     rowList = []
-    for item in result['allPatients']['edges']:
+    for item in result['patientDetails']['edges']:
         rowList.append(item['node'])
         print(item['node'])
     #print(result)
@@ -119,7 +160,7 @@ def transactions():
     query = gql (
         """ 
         query{
-  allTransactions {
+  transactionDetails {
     edges {
       node {
         CurrentpatientID, barcode, fullName, regtype,  sex, billto, 
@@ -134,12 +175,23 @@ def transactions():
         """
     )
     # Execute the query on the transport
-    result = client.execute(query)
+    try:
+      result = client.execute(query)
+    except asyncio.TimeoutError:
+      return {"result": f"timeout error on {URL}"}
+    #result = client.execute(query)
+    result_string = json.dumps(result, indent=2)
+    #print(result_string )
     if request.method=='POST':
         return render_template('transactions.html', result=result)
     rowList = []
-    for item in result['allTransactions']['edges']:
+    stringList = []
+    for item in result['transactionDetails']['edges']:
         rowList.append(item['node'])
-        print(item['node'])
+       # print(item['node'])
+    for item in result_string: 
+      stringList.append(item)
+      print(type(item))
+          
     #print(result)
     return  render_template('transactions.html', rowList=rowList )

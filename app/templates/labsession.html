@@ -16,6 +16,33 @@
 
 
 <div class="container col-8">
+    <div class="row g-3 fw-bold text-success border-primary">
+        <div class="col-md-2"> 
+            {{ current_patient['patientID']}}
+        </div>
+        <div class="col-md-2"> 
+            {{ current_patient['patientLastname']}} {{ current_patient['patientFirstname'] }}
+        </div>
+        <div class="col-md-1"> 
+            {{  current_patient['patientDateofBirth'] }}
+        </div>
+        <div class="col-md-1"> 
+                {{ current_patient['ageGrade'] }}
+        </div>
+        <div class="col-md-1"> 
+                {{  current_patient['patientSex'] }}
+        </div>
+        <div class="col-md-1"> 
+                {{ current_patient['patientType'] }}
+        </div>
+        <div class="col-md-1"> 
+                {{ current_patient ['patientCompanyname'] }} 
+        </div>
+        <div class="col-md-2"> 
+            
+        </div>
+    </div>
+
     <table class="table">
         <tr>
             <th scope="col">#</th>
@@ -24,6 +51,7 @@
             <th scope="col">testName</th>
             <th scope="col">testPrice</th>
             <th scope="col">testTAT</td>
+            <th scope="col">testDetails</th>
           </tr>
 {% for item  in rowList %}
         <tr>
@@ -33,6 +61,7 @@
             <td>{{ item['testName'] }} </td>
             <td>{{ item['testPrice'] }} </td>
             <td>{{ item['testTAT'] }} </td>
+            <td>{{ item['testDetails'] }}</td>
         </tr>
     {% endfor %}
 </table>
