@@ -69,7 +69,7 @@ def labsession():
         query{
           patientDetails (
             filters : {
-              patientID : {currentID}
+              patientID : "%s"
             }
           )
           {
@@ -102,7 +102,7 @@ def labsession():
             } 
           }
         }
-        """
+        """ %(currentID)
       )
     # Execute the query on the transport
     try:
