@@ -1,48 +1,45 @@
 <!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
-    <link rel="stylesheet"  href="{{url_for('static', 
-            filename='css/bootstrap.css')}}">
-    <link rel="stylesheet"  href="{{url_for('static', 
-            filename='css/bootstrap-utilities.css')}}">
-</head>
-<body>
+{% extends 'base.html' %}
 
-{#{ result  }#}
+    {% block page_content %}
 
-
-<div class="container-fluid">
-    <table class="table">
+    <table class="table table-striped table-hover table-bordered" id="table" 
+        data-toggle="table"  data-search="true"
+        data-show-columns="true"  data-card-view="false"
+        data-toggle="table"
+        data-height="440"
+        data-click-to-select="true"
+        data-checkbox-header="true"
+        data-show-footer="false" >
+        <thead>
         <tr>
-            <th scope="col">#</th>
-            <th scope="col">CurrentpatientID</th>
-            <th scope="col"> barcode</th>
-            <th scope="col">fullName</th>
-            <th scope="col">regtype</th>
-            <th scope="col">sex</th>
-            <th scope="col">billto,</th>
-            <th scope="col">testscheduletype</th>
-            <th scope="col">subtotal</th>
-            <th scope="col">discount</th>
-            <th scope="col">total</th>
-            <th scope="col">paymentmethod</th>
-            <th scope="col">payment</th>
-            <th scope="col">referenceOrchange</th>
-            <th scope="col">sessionconfirm</th>
-            <th scope="col">paymentconfirm</th>
-            <th scope="col">cashier</th>
-            <th scope="col">invoicetestname</th>
-            <th scope="col">invoiceprice</th>
-            <th scope="col">transactTime</th>
-            <th scope="col">phlebotomyProcessed</th>
-            <th scope="col">paymentupdateamount</th>
-            <th scope="col">paymentupdateby</th>
-            <th scope="col">paymentupdateTime</th>
+             <th data-field="  ">#</th>
+            <th data-field="CurrentpatientID">CurrentpatientID</th>
+             <th data-field="barcode<"> barcode</th>
+             <th data-field="fullName">fullName</th>
+             <th data-field="regtype">regtype</th>
+             <th data-field="sex">sex</th>
+             <th data-field="billto">billto,</th>
+             <th data-field="testscheduletype">testscheduletype</th>
+             <th data-field="subtotal">subtotal</th>
+             <th data-field="discount">discount</th>
+             <th data-field="total">total</th>
+             <th data-field="paymentmethod">paymentmethod</th>
+             <th data-field="payment">payment</th>
+             <th data-field="referenceOrchange">referenceOrchange</th>
+             <th data-field="sessionconfirm">sessionconfirm</th>
+             <th data-field="paymentconfirm">paymentconfirm</th>
+             <th data-field="cashier">cashier</th>
+             <th data-field="invoicetestname">invoicetestname</th>
+             <th data-field="invoiceprice">invoiceprice</th>
+             <th data-field="transactTime">transactTime</th>
+             <th data-field="phlebotomyProcessed">phlebotomyProcessed</th>
+             <th data-field="paymentupdateamount">paymentupdateamount</th>
+             <th data-field="paymentupdateby">paymentupdateby</th>
+             <th data-field="paymentupdateTime">paymentupdateTime</th>
           </tr>
+        </thead>
+        <tbody>
 {% for item  in rowList %}
         <tr>
             <td>{{loop.index }} </td>
@@ -71,9 +68,11 @@
             <td>{{ item['paymentupdateTime'] }} </td>
         </tr>
     {% endfor %}
+    </tbody>
 </table>
-</div>
-<script src="/static/js/bootstrap.js"></script>
-</body>
-<script src="/static/js/bootstrap.js"></script>
-</html>
+<script>
+    $(function() {
+      $('#table').bootstrapTable()
+    })
+</script>
+{% endblock page_content %}

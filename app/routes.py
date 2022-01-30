@@ -219,13 +219,13 @@ def transactions():
     if request.method=='POST':
         return render_template('transactions.html', result=result)
     rowList = []
-    stringList = []
+    #stringList = []
     for item in result['transactionDetails']['edges']:
         rowList.append(item['node'])
        # print(item['node'])
-    for item in result_string: 
+    '''for item in result_string: 
       stringList.append(item)
-      print(type(item))
+      #print(type(item))'''
           
     #print(result)
     return  render_template('transactions.html', rowList=rowList )

@@ -1,21 +1,7 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
-    <link rel="stylesheet"  href="{{url_for('static', 
-            filename='css/bootstrap.css')}}">
-    <link rel="stylesheet"  href="{{url_for('static', 
-            filename='css/bootstrap-utilities.css')}}">
-</head>
-<body>
+{% extends 'base.html' %}
 
-{#{ result  }#}
+    {% block page_content %}
 
-
-<div class="container-fluid">
     <div class="row g-3 fw-bold text-success border-primary">
         <div class="col-md-2"> 
             {{ current_patient['patientID']}}
@@ -45,8 +31,16 @@
         </div>
     </div>
     {{ current_patient  }}
-    <table class="table">
-        <tr>
+    <table class="table table-striped table-hover table-bordered" id="table" 
+    data-toggle="table"  data-search="true"
+    data-show-columns="true"  data-card-view="false"
+    data-toggle="table"
+    data-height="440"
+    data-click-to-select="true"
+    data-checkbox-header="true"
+    data-show-footer="false" >
+    <thead>    
+    <tr>
             <th scope="col">#</th>
             <th scope="col">testType</th>
             <th scope="col">testmnemonics</th>
@@ -55,6 +49,8 @@
             <th scope="col">testTAT</td>
             <th scope="col">testDetails</th>
           </tr>
+        </thead>
+        <tbody>
 {% for item  in rowList %}
         <tr>
             <td>{{loop.index}}</td>
@@ -66,8 +62,11 @@
             <td>{{ item['testDetails'] }}</td>
         </tr>
     {% endfor %}
+    </tbody>
 </table>
-<script src="/static/js/bootstrap.js"></script>
-</body>
-<script src="/static/js/bootstrap.js"></script>
-</html>
+<script>
+    $(function() {
+      $('#table').bootstrapTable()
+    })
+</script>
+{% endblock page_content %}
