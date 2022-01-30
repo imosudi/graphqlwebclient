@@ -15,36 +15,41 @@
 {#{ result  }#}
 
 
-<div class="container col-8">
+<div class="container-fluid">
     <table class="table">
         <tr>
             <th scope="col">#</th>
             <th scope="col">patientID</th>
             <th scope="col">patientSex</th>
             <th scope="col">patientType</th>
-            <th scope="col">patientPhonenumber</th>
             <th scope="col">patientTitle </td>
             <th scope="col">patientLastname</th>
             <th scope="col">patientFirstname</th>
             <th scope="col">ageGrade</th>
+            <th scope="col">patientEmail</th>
+            <th scope="col">patientPhonenumber</th>
+            <th scope="col">patientwhatsappnumber</th>
             <th scope="col">patientpersonalEnroledby </td>
           </tr>
+         
 {% for item  in rowList %}
         <tr>
             <td>{{loop.index}}</td>
             <td>{{ item['patientID'] }} </td>
             <td>{{ item['patientSex'] }} </td>
             <td>{{ item['patientType'] }} </td>
-            <td>{{ item['patientPhonenumber'] }} </td>
             <td>{{ item['patientTitle'] }} </td>
             <td>{{ item['patientLastname'] }} </td>
             <td>{{ item['patientFirstname'] }} </td>
             <td>{{ item['ageGrade'] }} </td>
+            <td>{{ item['patientEmail'] }} </td>
+            <td>{{ item['patientPhonenumber'] }} </td>
+            <td>{{ item['patientwhatsappnumber'] }} </td>
             <td>{{ item['patientpersonalEnroledby'] }} </td> 
         </tr>
     {% endfor %}
 </table>
 </div>
-<script src="app/static/js/bootstrap.js"></script>
+<script src="/static/js/bootstrap.js"></script>
 </body>
 </html>

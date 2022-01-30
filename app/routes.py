@@ -27,23 +27,47 @@ client = Client(transport=transport, fetch_schema_from_transport=True)
 @app.route('/',methods=['GET','POST'])
 def home():
     testDataColumns = ['testType', 'testmnemonics', 'testName', 'testPrice', 'testTAT]']
+    currentID = "SOLOL-202110FI005"
     query = gql (
         """ 
         query{
-  laboratoryTests {
-    edges {
-      node {
-        testType
-        testmnemonics
-        testName
-        testPrice
-        testTAT
-      }
-    }
-  }
-}
-        """
-    )
+          patientDetails (
+            filters : {
+              patientID : "%s"
+            }
+          )
+          {
+            edges {
+              node { 
+                patientID
+                patientLastname
+                patientFirstname
+                patientDateofBirth
+                ageGrade
+                patientSex
+                patientType
+                patientCompanyname
+              
+              } 
+            } 
+          },
+          laboratoryTests { 
+            edges { 
+              node { 
+                testId
+                testName
+                testBottleType
+                testPrice
+                testmnemonics
+                testTAT
+                testDetails
+                testType
+              } 
+            } 
+          }
+        }
+        """ %(currentID)
+      )
     # Execute the query on the transport
     try:
       result = client.execute(query)
@@ -55,15 +79,17 @@ def home():
     rowList = []
     for item in result['laboratoryTests']['edges']:
         rowList.append(item['node'])
-        print(item['node'])
+        #print(item['node'])
     #print(result)
+    patient = result['patientDetails']['edges']
+    current_patient = patient[-1]['node']
     return  render_template('index.html', rowList=rowList )
 
 
 @app.route('/labsession',methods=['GET','POST'])
 def labsession():
     testDataColumns = ['testType', 'testmnemonics', 'testName', 'testPrice', 'testTAT]']
-    currentID = "D&FIYIMR-202112FC364"
+    currentID = "SOLOL-202110FI005"
     query = gql (
         """ 
         query{
@@ -131,9 +157,16 @@ def patients():
           patientDetails {
             edges {
               node {
-                patientID,patientSex, patientType,patientPhonenumber
-                patientTitle, patientLastname, patientFirstname,
-                ageGrade, patientpersonalEnroledby
+                patientID
+                patientSex
+                patientTitle
+                patientLastname
+                patientFirstname
+                patientDateofBirth
+                ageGrade
+                patientEmail
+                patientPhonenumber
+                patientwhatsappnumber
               }
             }
           }

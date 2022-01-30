@@ -15,13 +15,15 @@
 {#{ result  }#}
 
 
-<div class="container col-8">
+<div class="container-fluid">
     <div class="row g-3 fw-bold text-success border-primary">
         <div class="col-md-2"> 
             {{ current_patient['patientID']}}
         </div>
         <div class="col-md-2"> 
-            {{ current_patient['patientLastname']}} {{ current_patient['patientFirstname'] }}
+           {{current_patient['patientTitle']}}. 
+           {{ current_patient['patientLastname']}} 
+           {{ current_patient['patientFirstname'] }}
         </div>
         <div class="col-md-1"> 
             {{  current_patient['patientDateofBirth'] }}
@@ -65,7 +67,7 @@
         </tr>
     {% endfor %}
 </table>
-<script src="app/static/js/bootstrap.js"></script>
+<script src="/static/js/bootstrap.js"></script>
 </body>
-<script src="app/static/js/bootstrap.js"></script>
+<script src="/static/js/bootstrap.js"></script>
 </html>
