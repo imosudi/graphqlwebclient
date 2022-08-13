@@ -10,7 +10,8 @@ from . import app
 
 # Selecting transport with a defined url endpoint
 #URL = "https://countries.trevorblades.com"
-URL = "http://localhost:8091/graphql-query"
+#URL = "http://localhost:8091/graphql-query"
+URL = 'https://api-medicinaelaboratorium.serverafrica.org/graphql-query'
 
 transport = AIOHTTPTransport(url=URL)
 

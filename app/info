@@ -1,0 +1,2 @@
+ssh -t imosudimedicinae_app@medicinaelaboratorium.serverafrica.org "cd ../../cgi-bin/ && git pull "
+ssh -t mio1.mioemi.com "sudo systemctl restart apache2.service &&  sudo tail -f /var/log/apache2/error.log"
